@@ -64,3 +64,59 @@ console.log(value);
 value = document.characterSet;
 console.log(value);
 
+value = document.scripts;
+console.log(value);
+
+value = document.scripts[0];
+console.log(value);
+
+value = document.scripts.length;
+console.log(value);
+
+value = document.links;
+console.log(value);
+
+value = document.links[0];
+console.log(value);
+
+value = document.links[document.links.length-1];
+console.log(value);
+
+value = document.links[document.links.length-1].getAttribute("class");
+console.log(value);
+
+value = document.links[document.links.length-1].className;
+console.log(value);
+
+value = document.links[document.links.length-1].classList;
+console.log(value); // show all class
+
+value = document.links[document.links.length-1].getAttribute("href");
+console.log(value);
+
+value = document.forms;
+console.log(value);
+
+value = document.forms.length;
+console.log(value);
+
+value = document.forms[0];
+console.log(value);
+
+value = document.forms["form"];//   if this tag has name attribute and this attribute if equal "form" u can get like this
+console.log(value);
+
+value = document.forms[0].id;
+console.log(value);
+
+value = document.forms[0].getAttribute("id");
+console.log(value);
+
+value = document.forms[0].getAttribute("name");
+console.log(value);
+
+value = document.forms[0].name;
+console.log(value);
+
+value = document.forms[0].method;   // if u not set method attribute for form tag, it is setted default value as get
+console.log(value);
