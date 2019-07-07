@@ -16,8 +16,19 @@ function eventListeners(){  // All Event Listeners
 
 function addTodo(e){
     const newTodo = todoInput.value.trim();// Delete whitespace where the beginning or in the end of this string
-    
-    addTodoToUI(newTodo);
+    if(newTodo === ""){
+        /*
+        <hr>
+        <div class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong> Change a few things up and try submitting again.
+        </div>
+        */ 
+        showAlert("danger","Lütfen bir todo girin...");
+    }
+    else{
+        addTodoToUI(newTodo);
+        showAlert("success","Todo Başarıyla Eklendi...");
+    }
 
     e.preventDefault();
 }
@@ -46,4 +57,20 @@ function addTodoToUI(newTodo) {
     listItem.appendChild(link);
     todoList.appendChild(listItem);
     todoInput.value="";
+}
+
+function showAlert(type,message) {
+    const hr = document.createElement("hr");
+    const alert = document.createElement("div");
+    alert.className = `alert alert-${type}`;
+    alert.textContent=message;
+    firstCardBody.appendChild(hr);
+    firstCardBody.appendChild(alert);
+
+    // setTimeout
+
+    setTimeout(function name() {
+        hr.remove();
+        alert.remove();
+    },1000);
 }
