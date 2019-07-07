@@ -14,6 +14,7 @@ function eventListeners(){  // All Event Listeners
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
     secondCardBody.addEventListener("click",deleteTodo);
     todoInput.addEventListener("keyup",filterTodos);
+    clearButtton.addEventListener("click",clearTodos);
 }
 
 function addTodo(e){
@@ -136,4 +137,22 @@ function filterTodos(e){
             listItem.setAttribute("style","display : block");
         }
     });
+}
+
+function clearTodos() {
+    if(confirm("Tümünü Silmek İstediğinize Emin Misiniz?")){
+        //todoList.innerHTML="";  // This method works slowly
+        
+        // while(todoList.firstElementChild !== null){
+        //     todoList.removeChild(todoList.firstElementChild);
+        // }
+
+        let todos=document.querySelectorAll(".list-group-item");
+        todos.forEach(element => {
+            element.remove();
+        });
+        localStorage.removeItem("todos");
+
+        showAlert("warning","Tüm Todolar Silindi!!!");
+    }
 }
