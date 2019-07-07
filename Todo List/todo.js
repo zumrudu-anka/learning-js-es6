@@ -1,6 +1,7 @@
 // Choose all elements
 const form = document.querySelector("#todo-form");
 const todoInput = document.querySelector("#todo");
+const searchTodo = document.querySelector("#filter");
 const todoList = document.querySelector(".list-group");
 const firstCardBody = document.querySelectorAll(".card-body")[0];
 const secondCardBody = document.querySelectorAll(".card-body")[1];
@@ -13,31 +14,49 @@ function eventListeners(){  // All Event Listeners
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
     secondCardBody.addEventListener("click",deleteTodo);
-    todoInput.addEventListener("keyup",filterTodos);
+    searchTodo.addEventListener("keyup",filterTodos);
     clearButtton.addEventListener("click",clearTodos);
 }
 
 function addTodo(e){
     const newTodo = todoInput.value.trim();// Delete whitespace where the beginning or in the end of this string
-    if(newTodo === ""){
-        /*
-        <hr>
-        <div class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong> Change a few things up and try submitting again.
-        </div>
-        */
-        //  warning,info is other showAlert types
-        showAlert("danger","Lütfen Bir Todo Giriniz...");
+    let todos = getTodosFromStorage();
+    if(todos.length!==0){
+        let control = false;
+        todos.forEach(element => {
+            if(element.toLowerCase()===newTodo.toLowerCase()){
+                control=true;
+            }
+        });
+        if(control){
+            showAlert("info","Eklemek İstediğiniz Todo Zaten Kayıtlı...");
+        }
+        else{
+            if(newTodo === ""){
+                /*
+                <hr>
+                <div class="alert alert-danger" role="alert">
+                    <strong>Oh snap!</strong> Change a few things up and try submitting again.
+                </div>
+                */
+                //  warning,info is other showAlert types
+                showAlert("danger","Lütfen Bir Todo Giriniz...");
+            }
+            else{
+                addTodoToUI(newTodo);
+                addTodoToStorage(newTodo);
+                showAlert("success","Todo Başarıyla Eklendi...");    
+            }
+        }
     }
     else{
         addTodoToUI(newTodo);
         addTodoToStorage(newTodo);
         showAlert("success","Todo Başarıyla Eklendi...");
     }
-
+    
     e.preventDefault();
 }
-
 
 function addTodoToUI(newTodo) {
     /*<li class="list-group-item d-flex justify-content-between">
