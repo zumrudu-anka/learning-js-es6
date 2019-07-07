@@ -22,11 +22,13 @@ function addTodo(e){
         <div class="alert alert-danger" role="alert">
             <strong>Oh snap!</strong> Change a few things up and try submitting again.
         </div>
-        */ 
+        */
+        //  warning,info is other showAlert types
         showAlert("danger","Lütfen bir todo girin...");
     }
     else{
         addTodoToUI(newTodo);
+        addTodoToStorage(newTodo);
         showAlert("success","Todo Başarıyla Eklendi...");
     }
 
@@ -73,4 +75,21 @@ function showAlert(type,message) {
         hr.remove();
         alert.remove();
     },1000);
+}
+
+function getTodosFromStorage(){
+    let todos;
+    if (localStorage.getItem("todos")===null){
+        todos=[];
+    }
+    else{
+        todos = JSON.parse(localStorage.getItem("todos"));
+    }
+    return todos;
+}
+
+function addTodoToStorage(newTodo){
+    let todos = getTodosFromStorage();
+    todos.push(newTodo);
+    localStorage.setItem("todos",JSON.stringify(todos));
 }
