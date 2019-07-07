@@ -13,6 +13,7 @@ function eventListeners(){  // All Event Listeners
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
     secondCardBody.addEventListener("click",deleteTodo);
+    todoInput.addEventListener("keyup",filterTodos);
 }
 
 function addTodo(e){
@@ -120,4 +121,19 @@ function deleteTodoFromStorage(deleteTodo){
         }
     });
     localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+function filterTodos(e){
+    const filterValue = e.target.value.toLowerCase();
+    const listItems = document.querySelectorAll(".list-group-item");
+    listItems.forEach(function(listItem) {
+        const text = listItem.textContent.toLowerCase();
+        if(text.indexOf(filterValue)===-1){
+            //dont find
+            listItem.setAttribute("style","display : none !important");
+        }
+        else{
+            listItem.setAttribute("style","display : block");
+        }
+    });
 }
