@@ -7,11 +7,11 @@ const secondCardBody = document.querySelectorAll(".card-body")[1];
 const filterInput = document.querySelector("#filter");
 const clearButtton = document.querySelector("#clear-todos");
 
-document.addEventListener("DOMContentLoaded",eventListeners);
+eventListeners();
 
 function eventListeners(){  // All Event Listeners
     form.addEventListener("submit",addTodo);
-
+    document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 }
 
 function addTodo(e){
@@ -92,4 +92,11 @@ function addTodoToStorage(newTodo){
     let todos = getTodosFromStorage();
     todos.push(newTodo);
     localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+function loadAllTodosToUI(){
+    let todos=getTodosFromStorage();
+    todos.forEach(todo => {
+        addTodoToUI(todo);
+    });
 }
